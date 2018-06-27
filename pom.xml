@@ -19,7 +19,7 @@
 
   <groupId>com.google.zxing</groupId>
   <artifactId>zxing-parent</artifactId>
-  <version>3.3.3-SNAPSHOT</version>
+  <version>3.3.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <dependencyManagement>
@@ -86,7 +86,7 @@
     <proguard.plugin.version>2.0.14</proguard.plugin.version>
     <slf4j.version>1.7.25</slf4j.version>
     <!-- This can't reference project.version as some subprojects version differently -->
-    <zxing.version>3.3.3-SNAPSHOT</zxing.version>
+    <zxing.version>3.3.4-SNAPSHOT</zxing.version>
     <android.platform>22</android.platform>
   </properties>
 
@@ -205,7 +205,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.1.0</version>
           <configuration>
             <filesets>
               <fileset>
@@ -231,12 +231,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
+          <version>3.1.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
+          <version>3.1.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -278,7 +278,7 @@
             <dependency>
               <groupId>org.apache.maven.scm</groupId>
               <artifactId>maven-scm-provider-gitexe</artifactId>
-              <version>1.9.5</version>
+              <version>1.9.5</version> <!-- can't go to 1.10 until release plugin does -->
             </dependency>
           </dependencies>
           <configuration>
@@ -301,7 +301,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.0.2</version>
+          <version>3.1.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -339,7 +339,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
-          <version>3.2.0</version>
+          <version>3.2.1</version>
         </plugin>
         <plugin>
           <groupId>com.simpligility.maven.plugins</groupId>
@@ -430,7 +430,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.7</version>
+          <version>3.7.1</version>
           <inherited>false</inherited>
         </plugin>
         <plugin>
@@ -466,7 +466,7 @@
             <dependency>
               <groupId>com.puppycrawl.tools</groupId>
               <artifactId>checkstyle</artifactId>
-              <version>8.10</version>
+              <version>8.10.1</version>
             </dependency>
           </dependencies>
         </plugin>
