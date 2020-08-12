@@ -244,8 +244,10 @@ public final class PDF417ScanningDecoder {
       }
       barcodeMatrix01.setValue(calculatedNumberOfCodewords);
     } else if (numberOfCodewords[0] != calculatedNumberOfCodewords) {
-      // The calculated one is more reliable as it is derived from the row indicator columns
-      barcodeMatrix01.setValue(calculatedNumberOfCodewords);
+      if (calculatedNumberOfCodewords >= 1 && calculatedNumberOfCodewords <= PDF417Common.MAX_CODEWORDS_IN_BARCODE) {
+        // The calculated one is more reliable as it is derived from the row indicator columns
+        barcodeMatrix01.setValue(calculatedNumberOfCodewords);
+      }
     }
   }
 
@@ -256,7 +258,7 @@ public final class PDF417ScanningDecoder {
     Collection<Integer> erasures = new ArrayList<>();
     int[] codewords = new int[detectionResult.getBarcodeRowCount() * detectionResult.getBarcodeColumnCount()];
     List<int[]> ambiguousIndexValuesList = new ArrayList<>();
-    List<Integer> ambiguousIndexesList = new ArrayList<>();
+    Collection<Integer> ambiguousIndexesList = new ArrayList<>();
     for (int row = 0; row < detectionResult.getBarcodeRowCount(); row++) {
       for (int column = 0; column < detectionResult.getBarcodeColumnCount(); column++) {
         int[] values = barcodeMatrix[row][column + 1].getValue();

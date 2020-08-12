@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 ZXing authors
+ * Copyright 2019 ZXing authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.j2se;
+package com.google.zxing.web;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.nio.charset.StandardCharsets;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 
 /**
- * Tests {@link Base64Decoder}.
+ * Protect the /decode endpoint from too many requests.
  */
-public final class Base64DecoderTestCase extends Assert {
-  
-  @Test
-  public void testEncode() {
-    Base64Decoder decoder = Base64Decoder.getInstance();
-    assertArrayEquals("foo".getBytes(StandardCharsets.UTF_8), decoder.decode("Zm9v"));
-  }
-  
+@WebFilter(urlPatterns = {"/w/decode"}, initParams = {
+  @WebInitParam(name = "maxAccessPerTime", value = "60"),
+  @WebInitParam(name = "accessTimeSec", value = "180"),
+  @WebInitParam(name = "maxEntries", value = "10000"),
+  @WebInitParam(name = "maxLoad", value = "0.9")
+})
+public final class DecodeDoSFilter extends DoSFilter {
+  // no additional implementation
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 ZXing authors
+ * Copyright 2018 ZXing authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,19 @@
 
 package com.google.zxing.client.j2se;
 
-import java.lang.reflect.InvocationTargetException;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Uses {@code javax.xml.bind.DatatypeConverter}, which is not (necessarily) present
- * in Java 9.
+ * Tests {@link CommandLineRunner}.
  */
-final class JAXBBase64Decoder extends Base64Decoder {
-  @Override
-  byte[] decode(String s) {
-    try {
-      return (byte[]) Class.forName("javax.xml.bind.DatatypeConverter")
-          .getMethod("parseBase64Binary", String.class).invoke(null, s);
-    } catch (IllegalAccessException | InvocationTargetException |
-             NoSuchMethodException | ClassNotFoundException e) {
-      throw new IllegalStateException(e);
-    }
+public final class CommandLineRunnerTestCase extends Assert {
+
+  @Test
+  public void testCommandLineRunner() throws Exception {
+    String[] args = { "--pure_barcode", DecodeWorkerTestCase.IMAGE_DATA_URI };
+    // Not a lot to do here but make sure it runs
+    CommandLineRunner.main(args);
   }
+
 }
