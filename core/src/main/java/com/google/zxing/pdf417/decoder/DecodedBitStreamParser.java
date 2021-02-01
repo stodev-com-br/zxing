@@ -22,6 +22,7 @@ import com.google.zxing.common.DecoderResult;
 import com.google.zxing.pdf417.PDF417ResultMetadata;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -125,7 +126,7 @@ final class DecodedBitStreamParser {
         case ECI_CHARSET:
           CharacterSetECI charsetECI =
               CharacterSetECI.getCharacterSetECIByValue(codewords[codeIndex++]);
-          encoding = Charset.forName(charsetECI.name());
+          encoding = charsetECI.getCharset();
           break;
         case ECI_GENERAL_PURPOSE:
           // Can't do anything with generic ECI; skip its 2 characters
@@ -608,7 +609,12 @@ final class DecodedBitStreamParser {
         }
         break;
     }
-    result.append(new String(decodedBytes.toByteArray(), encoding));
+    try {
+      result.append(decodedBytes.toString(encoding.name()));
+    } catch (UnsupportedEncodingException uee) {
+      // can't happen
+      throw new IllegalStateException(uee);
+    }
     return codeIndex;
   }
 
